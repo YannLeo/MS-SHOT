@@ -1,0 +1,75 @@
+# A config file for DNN tests on Office Home dataset
+#
+# @Time    : 2022/12/26 14:23
+# @Author  : 
+# @Notes   : Baseline tests. 
+# 
+
+name = 'SHOT_fbnm_nmlzabs_softlabel_temp0.1_emac'      # where to save the results under ./saved/
+trainer = 'SHOTNormEMATrainer' # the trainer name; main procedure
+
+# ############################## Resume
+# resume = "saved/office_home_Pr_Rw_source_only/2023-02-24-16-45-10/model/model_best.pth"
+# resume = "saved/office_home_Pr_Rw_source_only_SGD/2023-02-27-16-38-00/model/model_best.pth"
+resume = 'saved/wisig_14-7_3-19_sourceonly/2023-03-12-20-48-49/model/checkpoint-epoch45.pth'
+
+
+
+############################### Important hyper parameters!!
+label_smoothing = 0.05
+
+
+############################### Miscellaneous
+epochs = 50
+num_classes = 6
+save_period = 45
+# Whether to plot the confusion matrices in each test epoch to ./saved/**/confusion/*.jpg.
+plot_confusion = false
+
+############################### softlabel
+temperature = 0.1
+soft_label = true
+
+############################### ema
+ema_initc_par = 0.99
+emac = true
+
+############################### Entropy
+fbnm = true
+rowsparse = false
+entropy = false
+
+nmlzabs = true
+balance = false
+
+classifier_weight = 0.3
+fbnm_weight = 1.0
+nmlzabs_weight = 0.5
+
+############################### Neural Networks
+# The base model
+[model]
+name = 'WiSigSHOTNet'
+args = { num_classes = 6 }
+
+
+############################### Dataloaders
+# On source domian
+[dataloader_train]
+args = { batch_size = 98, num_workers = 1, shuffle = true, drop_last = true }
+[dataloader_train.dataset]
+name = "WiSigDiffRecvDataset"
+args = { Rx = ['3-19'], train = true, return_index = true}
+
+[dataloader_test]
+args = { batch_size = 64, num_workers = 1, shuffle = false, drop_last = false }
+[dataloader_test.dataset]
+name = "WiSigDiffRecvDataset"
+args = { Rx = ['3-19'], train = false, return_index = true }
+
+############################### Learning Rate Schedulers for Optimizers
+[lr_scheduler]
+name = "StepLR"
+init_lr = 0.0006
+args = { step_size = 1000, gamma = 0.6 }
+
