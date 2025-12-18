@@ -19,10 +19,10 @@ Then you should unzip the dataset.
 
 1. Run source model
 ```
-python main.py -c configs/A_source_only.toml -Rx_s 7-7 -Rx_t 8-8 -
+python main.py -c configs/A_source_only.toml -Rx_s 7-7 -Rx_t 8-8 -data_dir your/dataset/path
 ```
 
 2. Adapt to target domain
 ```
-python main.py -c configs/SHOT_fbnm_nmlzabs_softlabel_temp0.1_emac.toml -Rx_s 7-7 -Rx_t 8-8
+python main.py -c configs/SHOT_fbnm_nmlzabs_softlabel_temp0.1_emac.toml -Rx_s 7-7 -Rx_t 8-8 -data_dir your/dataset/path
 ```
