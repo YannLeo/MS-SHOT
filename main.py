@@ -32,10 +32,11 @@ parser.add_argument('-r', '--resume', default=None, type=str,
 parser.add_argument('-Rx_s', default='1-1', type=str)
 parser.add_argument('-Rx_t', default='1-19', type=str)
 parser.add_argument('-save_dir', default='./saved/', type=str)
+parser.add_argument('-data_dir', default='/home/yl/Data/Wisig/Rx/', type=str)
 
 
 """2. Loading toml configuration file"""
-config, resume, Rx_s, Rx_t, save_dir = parser.parse_args().config, parser.parse_args().resume, parser.parse_args().Rx_s, parser.parse_args().Rx_t, parser.parse_args().save_dir
+config, resume, Rx_s, Rx_t, save_dir, data_dir = parser.parse_args().config, parser.parse_args().resume, parser.parse_args().Rx_s, parser.parse_args().Rx_t, parser.parse_args().save_dir, parser.parse_args().data_dir
 with open(config, 'r', encoding='utf8') as f:
     info = toml.load(f)
 
@@ -46,5 +47,6 @@ print(f"--- Using configuration file: {config} ---")
 print(f"--- Using device(s): {os.environ.get('CUDA_VISIBLE_DEVICES', 'default')} ---")
 
 info['save_dir'] = save_dir
+info['data_dir'] = data_dir
 trainer = getattr(trainers, info['trainer'])(info, resume, path, Rx_s, Rx_t)  # load trainer from toml file
 trainer.train()

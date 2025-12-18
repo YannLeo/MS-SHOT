@@ -31,8 +31,10 @@ class BasicTrainer(_Trainer_Base):
         # datasets!
         args_source_train = info['dataloader_train']['dataset']['args']
         args_source_train['Rx'] = [self.Rx_s]
+        args_source_train['path'] = info['data_dir']
         args_source_test = info['dataloader_test']['dataset']['args']
         args_source_test['Rx'] = [self.Rx_t]
+        args_source_test['path'] = info['data_dir']
         self.dataset_train = self._get_object(datasets, info['dataloader_train']['dataset']['name'],
                                                args_source_train)
         self.dataset_test = self._get_object(datasets, info['dataloader_test']['dataset']['name'],

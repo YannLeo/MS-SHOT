@@ -11,13 +11,15 @@ pip install -r requirements.txt
 
 ### Step 2. Prepare datasets
 
-Comming soon...
+The processed dataset is in [here](https://drive.google.com/file/d/1tlQk3Jcsq5Tib9FBQXj13EHTAybqmBGA/view?usp=drive_link).
+
+Then you should unzip the dataset.
 
 ### Step 3. Try
 
 1. Run source model
 ```
-python main.py -c configs/A_source_only.toml -Rx_s 7-7 -Rx_t 8-8
+python main.py -c configs/A_source_only.toml -Rx_s 7-7 -Rx_t 8-8 -
 ```
 
 2. Adapt to target domain
